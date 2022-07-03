@@ -1,0 +1,33 @@
+[package]
+name = "nrf52832-play"
+version = "0.1.0"
+authors = ["Rubens Brandao <git@rubens.io>"]
+edition = "2018"
+
+[profile.dev]
+incremental = false
+codegen-units = 1
+debug = true
+lto = false
+
+[profile.release]
+debug = true
+lto = true
+opt-level = "s"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+rtt-target = {version = "0.2", features = ["cortex-m"] }
+nrf52832-pac = { features = ["rt"], version = "0.10" }
+
+[features]
+rt = ["nrf52832-pac/rt"]
+xxAA-package = []
+xxAB-package = []
+
+# Note: We use the xxAB package because it has the least amount of available resources.
+#   However, most users will want to use the xxAA package.
+default = ["rt", "xxAB-package"]
